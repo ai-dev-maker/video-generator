@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Video Generator</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.container{
+    width:600px;
+    background:#111827;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.input-group{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+    color:#cbd5f5;
+}
+
+textarea{
+    width:100%;
+    height:100px;
+    border-radius:8px;
+    border:none;
+    padding:10px;
+    font-size:14px;
+    background:#1f2937;
+    color:white;
+}
+
+select{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    background:#1f2937;
+    color:white;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    background:#6366f1;
+    border:none;
+    border-radius:8px;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover{
+    background:#4f46e5;
+}
+
+.result{
+    margin-top:25px;
+    padding:15px;
+    border-radius:10px;
+    background:#020617;
+    text-align:center;
+}
+
+video{
+    width:100%;
+    border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>AI Video Generator</h1>
+
+<div class="input-group">
+<label>Prompt</label>
+<textarea placeholder="A cinematic drone shot of mountains at sunrise..."></textarea>
+</div>
+
+<div class="input-group">
+<label>Video length</label>
+<select>
+<option>5 seconds</option>
+<option>10 seconds</option>
+<option>15 seconds</option>
+</select>
+</div>
+
+<button>Generate Video</button>
+
+<div class="result">
+<p>Your generated video will appear here</p>
+
+<!-- пример -->
+<!--
+<video controls>
+<source src="video.mp4" type="video/mp4">
+</video>
+-->
+
+</div>
+
+</div>
+
+</body>
+</html>
