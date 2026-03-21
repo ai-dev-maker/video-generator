@@ -1,133 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>AI Video Generator</title>
+    <meta charset="UTF-8">
+    <title>AI Video Generator</title>
 
-<style>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-body{
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg,#0f172a,#1e293b);
-    color:white;
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+        body {
+            margin: 0;
+            font-family: "Inter", Arial, sans-serif;
+            background: radial-gradient(circle at top, #1e293b, #020617);
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.container{
-    width:600px;
-    background:#111827;
-    border-radius:15px;
-    padding:30px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.6);
-}
+        .container {
+            width: 650px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-h1{
-    text-align:center;
-    margin-bottom:25px;
-}
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 26px;
+            letter-spacing: 1px;
+        }
 
-.input-group{
-    margin-bottom:20px;
-}
+        .input-group {
+            margin-bottom: 22px;
+        }
 
-label{
-    display:block;
-    margin-bottom:6px;
-    font-size:14px;
-    color:#cbd5f5;
-}
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
 
-textarea{
-    width:100%;
-    height:100px;
-    border-radius:8px;
-    border:none;
-    padding:10px;
-    font-size:14px;
-    background:#1f2937;
-    color:white;
-}
+        textarea {
+            width: 100%;
+            height: 110px;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            background: rgba(2, 6, 23, 0.7);
+            color: white;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+            transition: 0.2s;
+        }
 
-select{
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    border:none;
-    background:#1f2937;
-    color:white;
-}
+        textarea:focus {
+            border: 1px solid #6366f1;
+            box-shadow: 0 0 0 1px #6366f1;
+        }
 
-button{
-    width:100%;
-    padding:14px;
-    background:#6366f1;
-    border:none;
-    border-radius:8px;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.2s;
-}
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            background: rgba(2, 6, 23, 0.7);
+            color: white;
+            outline: none;
+            transition: 0.2s;
+        }
 
-button:hover{
-    background:#4f46e5;
-}
+        select:focus {
+            border: 1px solid #6366f1;
+        }
 
-.result{
-    margin-top:25px;
-    padding:15px;
-    border-radius:10px;
-    background:#020617;
-    text-align:center;
-}
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.25s ease;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
 
-video{
-    width:100%;
-    border-radius:10px;
-}
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        }
 
-</style>
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 18px;
+            border-radius: 14px;
+            background: rgba(2, 6, 23, 0.8);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        video,
+        img {
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        /* subtle glow effect */
+        .container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.4), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="container">
+        <h1>AI Video Generator</h1>
 
-<div class="container">
+        <div class="input-group">
+            <label for="prompt">Prompt</label>
+            <textarea id="prompt" placeholder="A cinematic drone shot of mountains at sunrise..."></textarea>
+        </div>
 
-<h1>AI Video Generator</h1>
+        <div class="input-group">
+            <label for="length">Video length</label>
+            <select id="length">
+                <option>5 seconds</option>
+                <option>10 seconds</option>
+                <option>15 seconds</option>
+            </select>
+        </div>
 
-<div class="input-group">
-<label>Prompt</label>
-<textarea placeholder="A cinematic drone shot of mountains at sunrise..."></textarea>
-</div>
+        <button id="generateBtn">Generate Video</button>
 
-<div class="input-group">
-<label>Video length</label>
-<select>
-<option>5 seconds</option>
-<option>10 seconds</option>
-<option>15 seconds</option>
-</select>
-</div>
+        <div class="result" id="result">
+            <p>Your generated video will appear here</p>
+        </div>
+    </div>
 
-<button>Generate Video</button>
+    <script>
+        const button = document.getElementById("generateBtn");
+        const promptInput = document.getElementById("prompt");
+        const lengthSelect = document.getElementById("length");
+        const resultDiv = document.getElementById("result");
 
-<div class="result">
-<p>Your generated video will appear here</p>
+        button.addEventListener("click", async () => {
+            const prompt = promptInput.value;
+            const length = lengthSelect.value;
 
-<!-- пример -->
-<!--
-<video controls>
-<source src="video.mp4" type="video/mp4">
-</video>
--->
+            const res = await fetch("/generate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ prompt, length })
+            });
 
-</div>
+            const data = await res.json();
 
-</div>
-
+            resultDiv.innerHTML = `
+                <img src="data:image/png;base64,${data.image}" />
+            `;
+        });
+    </script>
 </body>
 </html>
